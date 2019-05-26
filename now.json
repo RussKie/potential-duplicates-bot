@@ -1,5 +1,11 @@
 {
   "version": 2,
+  "env": {
+    "NODE_ENV": "production",
+    "APP_ID": "",
+    "WEBHOOK_SECRET": "",
+    "PRIVATE_KEY": ""
+  },
   "github": {
     "silent": false
   }
