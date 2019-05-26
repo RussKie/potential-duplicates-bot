@@ -178,7 +178,9 @@ module.exports = robot => {
 
     try {
       const duplicates = []
-      const response = await context.github.issues.getForRepo(context.repo())
+      const response = await context.github.issues.getForRepo(context.repo({
+        state: 'all',
+      }))
       const issues = response.data.filter(i => i.number !== number)
 
       for (const issue of issues) {
