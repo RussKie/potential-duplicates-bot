@@ -4,9 +4,9 @@
   "description": "A Probot app",
   "author": "RussKie <russkie@gmail.com> (https://github.com/RussKie/potential-duplicates-bot)",
   "license": "ISC",
-  "repository": "https://github.com//potential-duplicates-bot.git",
-  "homepage": "https://github.com//potential-duplicates-bot",
-  "bugs": "https://github.com//potential-duplicates-bot/issues",
+  "repository": "https://github.com/potential-duplicates-bot.git",
+  "homepage": "https://github.com/potential-duplicates-bot",
+  "bugs": "https://github.com/potential-duplicates-bot/issues",
   "keywords": [
     "probot",
     "github",
@@ -14,7 +14,7 @@
   ],
   "scripts": {
     "dev": "nodemon",
-    "start": "probot run ./index.js",
+    "start": "probot run ./src/index.js",
     "lint": "standard --fix",
     "test": "jest && standard",
     "test:watch": "jest --watch --notify --notifyMode=change --coverage"
@@ -43,7 +43,7 @@
     "exec": "npm start",
     "watch": [
       ".env",
-      "."
+      "./src"
     ]
   },
   "jest": {
