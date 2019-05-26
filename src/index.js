@@ -239,3 +239,8 @@ module.exports = robot => {
   // To get your app running against GitHub, see:
   // https://probot.github.io/docs/development/
 }
+
+module.exports.distance = distance
+module.exports.compare = compare
+module.exports.prepare = prepare
+module.exports.similarity = similarity
