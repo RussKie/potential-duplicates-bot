@@ -74,8 +74,8 @@ function distance (a, b) {
       let cost = a[i - 1] === b[j - 1] ? 0 : 1
 
       matrix[i][j] = Math.min(
-        matrix[i - 1][j + 0] + 1,   // deletion
-        matrix[i + 0][j - 1] + 1,   // insertion
+        matrix[i - 1][j + 0] + 1, // deletion
+        matrix[i + 0][j - 1] + 1, // insertion
         matrix[i - 1][j - 1] + cost // substitution
       )
 
