@@ -177,27 +177,32 @@ module.exports = robot => {
     }
 
     try {
+      const startDate = new Date('01 March 2019 00:00 UTC').toISOString()
       const duplicates = []
-      const response = await context.github.issues.getForRepo(context.repo({
-        state: 'all',
-      }))
-      const issues = response.data.filter(i => i.number !== number)
 
-      for (const issue of issues) {
-        console.time('compare')
-        const accuracy = compare(issue.title, title)
-        console.timeEnd('compare')
+      await context.github.paginate(
+        context.github.issues.listForRepo(context.repo({
+          state: 'all',
+          per_page: 100,
+          since: startDate
+        })),
+        async page => {
+          for (const issue of page.data.filter(i => i.number !== number && i.title.startsWith('[NBug]'))) {
+            console.time('compare')
+            const accuracy = compare(issue.title, title)
+            console.timeEnd('compare')
 
-        robot.log(`${issue.title} ~ ${title} = ${accuracy}%`)
+            // robot.log(`${accuracy}%: #${issue.number} ${issue.title}`)
 
-        if (accuracy >= value.threshold) {
-          duplicates.push({
-            number: issue.number,
-            title: issue.title,
-            accuracy: parseInt(accuracy * 100)
-          })
-        }
-      }
+            if (accuracy >= value.threshold) {
+              duplicates.push({
+                number: issue.number,
+                title: issue.title,
+                accuracy: parseInt(accuracy * 100)
+              })
+            }
+          }
+        })
 
       if (duplicates.length) {
         console.log(mustache.render(value.referenceComment, {
