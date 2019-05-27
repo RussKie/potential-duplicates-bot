@@ -169,11 +169,17 @@ module.exports = robot => {
     'issues.opened',
     'issues.edited'
   ], async context => {
+    if (context.payload.issue.state === 'closed') {
+      robot.log('The issue is closed, ignore')
+      return
+    }
+
     const { title, number } = context.payload.issue
     const { error, value } = schema.validate(context.config(CONFIG_NAME))
 
     if (error) {
       robot.log.fatal(error, 'Invalid config')
+      return
     }
 
     try {
