@@ -207,7 +207,7 @@ module.exports = robot => {
 
       if (duplicates.length) {
         console.log(mustache.render(value.referenceComment, {
-          issues: duplicates
+          issues: duplicates.sort((a, b) => a.number - b.number)
         }))
         await markAsDuplicate(duplicates)
       }
