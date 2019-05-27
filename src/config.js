@@ -25,7 +25,7 @@ module.exports = Joi.object().keys({
   referenceComment: fields.referenceComment.default(
     'Potential duplicates: \n' +
     '{{#issues}}' +
-    '- [#{{ number }}] {{ title }} ({{ accuracy }}%) \n' +
+    '- {{ shield }} \n' +
     '{{/issues}}'
   )
 })

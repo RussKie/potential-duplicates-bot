@@ -198,7 +198,8 @@ module.exports = robot => {
               duplicates.push({
                 number: issue.number,
                 title: issue.title,
-                accuracy: parseInt(accuracy * 100)
+                accuracy: parseInt(accuracy * 100),
+                shield: buildShield(issue.number, issue.title, parseInt(accuracy * 100))
               })
             }
           }
@@ -237,6 +238,16 @@ module.exports = robot => {
       } catch (error) {
         robot.log.fatal(error, 'Could not mark as duplicate!')
       }
+    }
+
+    function buildShieldUri (number, title, accuracy) {
+      const userData = encodeURIComponent(`Similarity ${accuracy}%-#${number} ${title}`)
+      return `https://img.shields.io/badge/${userData}-red.svg`
+    }
+
+    function buildShield (number, title, accuracy) {
+      const url = buildShieldUri(number, title, accuracy)
+      return `[![#${number}](${url})](${number})`
     }
   })
 
