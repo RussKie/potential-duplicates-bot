@@ -241,7 +241,7 @@ module.exports = robot => {
     }
 
     function buildShieldUri (number, title, accuracy) {
-      const userData = encodeURIComponent(`Similarity ${accuracy}%-#${number} ${title}`)
+      const userData = encodeURIComponent(`#${number} ${title.replace('-', '--')}-Similarity ${accuracy}%`)
       return `https://img.shields.io/badge/${userData}-red.svg`
     }
 
