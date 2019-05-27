@@ -198,8 +198,9 @@ module.exports = robot => {
               duplicates.push({
                 number: issue.number,
                 title: issue.title,
+                comments: issue.comments,
                 accuracy: parseInt(accuracy * 100),
-                shield: buildShield(issue.number, issue.title, parseInt(accuracy * 100))
+                shield: buildShield(issue.number, issue.title, issue.comments, parseInt(accuracy * 100))
               })
             }
           }
@@ -240,13 +241,14 @@ module.exports = robot => {
       }
     }
 
-    function buildShieldUri (number, title, accuracy) {
-      const userData = encodeURIComponent(`#${number} ${title.replace('-', '--')}-Similarity ${accuracy}%`)
-      return `https://img.shields.io/badge/${userData}-red.svg`
+    function buildShieldUri (number, title, comments, accuracy) {
+      const color = comments < 2 ? 'lightgrey' : comments < 5 ? 'green' : comments < 10 ? 'orange' : 'red'
+      const userData = encodeURIComponent(`#${number} ${title.replace('-', '--').replace(' ', '_')}-similarity ${accuracy}% / comments ${comments}`)
+      return `https://img.shields.io/badge/${userData}-${color}.svg`
     }
 
-    function buildShield (number, title, accuracy) {
-      const url = buildShieldUri(number, title, accuracy)
+    function buildShield (number, title, comments, accuracy) {
+      const url = buildShieldUri(number, title, comments, accuracy)
       return `[![#${number}](${url})](${number})`
     }
   })
