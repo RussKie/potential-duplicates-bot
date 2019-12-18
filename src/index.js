@@ -183,6 +183,10 @@ module.exports = robot => {
     }
 
     try {
+      if (title.startsWith('[NBug] ConEmuCD was not loaded')) {
+        await notifyFixed('v3.3')
+      }
+
       const startDate = new Date('01 March 2019 00:00 UTC').toISOString()
       const duplicates = []
 
@@ -220,6 +224,20 @@ module.exports = robot => {
       }
     } catch (error) {
       robot.log.fatal(error, 'Something went wrong!')
+    }
+
+    async function notifyFixed (appVersion) {
+      const createComment = context.github.issues.createComment(context.issue({
+        body: mustache.render(value.fixedInVersionComment, {
+          appVersion: appVersion
+        })
+      }))
+
+      try {
+        await Promise.all([createComment])
+      } catch (error) {
+        robot.log.fatal(error, 'Could not advise issues fixed in version: ' + appVersion)
+      }
     }
 
     /**

@@ -15,7 +15,11 @@ const fields = {
 
   referenceComment: Joi.alternatives().try(Joi.string(), Joi.any().only(false))
     .error(() => '"referenceComment" must be a string or false')
-    .description('Comment to post when marking as potential duplciate')
+    .description('Comment to post when marking as potential duplicate'),
+
+  fixedInVersionComment: Joi.alternatives().try(Joi.string(), Joi.any().only(false))
+    .error(() => '"fixedInVersionComment" must be a string or false')
+    .description('Comment to post when advising issue was fixed in a specific version')
 }
 
 module.exports = Joi.object().keys({
@@ -27,5 +31,8 @@ module.exports = Joi.object().keys({
     '{{#issues}}' +
     '- {{ shield }} \n' +
     '{{/issues}}'
+  ),
+  fixedInVersionComment: fields.fixedInVersionComment.default(
+    ':bulb: The issue has been fixed in [{{ appVersion }}](https://github.com/gitextensions/gitextensions/releases/tag/{{ appVersion }}). Please update your version.'
   )
 })
