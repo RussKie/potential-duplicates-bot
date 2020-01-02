@@ -187,6 +187,10 @@ module.exports = robot => {
         await notifyFixed('v3.3')
       }
 
+      if (title.startsWith('[NBug] Value cannot be null.Parameter name: path3')) {
+        await notifyFixed('v3.3');
+      }
+
       const startDate = new Date('01 March 2019 00:00 UTC').toISOString()
       const duplicates = []
 
