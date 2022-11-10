@@ -29,7 +29,7 @@ module.exports = Joi.object().keys({
   referenceComment: fields.referenceComment.default(
     'Potential duplicates: \n' +
     '{{#issues}}' +
-    '- {{ shield }} \n' +
+    '- {{{ shield }}} \n' +
     '{{/issues}}'
   ),
   fixedInVersionComment: fields.fixedInVersionComment.default(
