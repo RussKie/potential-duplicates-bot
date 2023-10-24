@@ -184,14 +184,18 @@
      }
  
      try {
+       if (title.startsWith('[NBug] Could not load file or assembly')) {
+         await notifyFixed('v4.2');
+       }
+
        if (title.startsWith('[NBug] ConEmuCD was not loaded')) {
          await notifyFixed('v3.3');
        }
-       
+
        if (title.startsWith('[NBug] Value cannot be null.Parameter name: path3')) {
          await notifyFixed('v3.3');
        }
- 
+
        const startDate = new Date('01 March 2019 00:00 UTC').toISOString()
        const duplicates = []
  
